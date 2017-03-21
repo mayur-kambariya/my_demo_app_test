@@ -9,16 +9,12 @@
       <% end %>
       </ul>
     </div>
-  <% end %>
+    <% end %>
+  <div class="field">
+    <%= f.label :City %><br>
+    <%= select_tag 'city', options_from_collection_for_select(@city, 'id', 'name') %>
+  </div>
 
-  <div class="field">
-    <%= f.label :customer_id %><br>
-    <%= f.text_field :customer_id %>
-  </div>
-  <div class="field">
-    <%= f.label :cleaner_id %><br>
-    <%= f.text_field :cleaner_id %>
-  </div>
   <div class="field">
     <%= f.label :time %><br>
     <%= f.datetime_select :time %>

@@ -2,17 +2,16 @@
 
 <p>
   <strong>Customer:</strong>
-  <%= @booking.customer %>
+  <%= @booking.customer.first_name+' '+@booking.customer.last_name %>
 </p>
-
 <p>
   <strong>Cleaner:</strong>
-  <%= @booking.cleaner %>
+  <%= @booking.cleaner.first_name+' '+@booking.cleaner.last_name %>
 </p>
 
 <p>
-  <strong>Date:</strong>
-  <%= @booking.date %>
+  <strong>Time:</strong>
+  <%= @booking.time %>
 </p>
 
 <%= link_to 'Edit', edit_booking_path(@booking) %> |
