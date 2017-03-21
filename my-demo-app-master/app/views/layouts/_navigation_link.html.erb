@@ -2,7 +2,11 @@
   <%= link_to 'Cleaners', cleaners_path %>
   <%= link_to 'logout', destroy_admin_session_path,method: :delete %>
 <% else %>
-  <%= link_to 'Bookings', bookings_path %>
-  <%= link_to 'Customers', customers_path %>
-  <%= link_to 'Login_Admin', new_admin_session_path,method: :get %>
+  <% if session[:customer].nil? %>
+    <%= link_to 'Login_Customer', new_customer_path,method: :get %>
+    <%= link_to 'Login_Admin', new_admin_session_path,method: :get %>
+  <% else %>
+  <%= link_to 'Booking', new_booking_path,method: :get %>
+  <%= button_to 'Logout',logout_customer_path, method: :post  %>
+  <% end %>
 <% end %>

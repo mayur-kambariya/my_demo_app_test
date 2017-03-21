@@ -10,24 +10,15 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :first_name %><br>
-    <%= f.text_field :first_name %>
-  </div>
-  <div class="field">
-    <%= f.label :last_name %><br>
-    <%= f.text_field :last_name %>
-  </div>
   <div class="field">
     <%= f.label :phone_number %><br>
     <%= f.text_field :phone_number %>
   </div>
   <div class="field">
     <%= f.label :password %><br>
-    <%= f.password_field :password %>
+    <%= f.text_field :password %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Login' %>
   </div>
 <% end %>

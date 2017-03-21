@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170321065545) do
+ActiveRecord::Schema.define(version: 20170321111321) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -34,11 +34,13 @@ ActiveRecord::Schema.define(version: 20170321065545) do
   create_table "bookings", force: :cascade do |t|
     t.integer  "customer_id"
     t.integer  "cleaner_id"
-    t.date     "date"
+    t.integer  "city_id"
+    t.time     "time"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
+  add_index "bookings", ["city_id"], name: "index_bookings_on_city_id"
   add_index "bookings", ["cleaner_id"], name: "index_bookings_on_cleaner_id"
   add_index "bookings", ["customer_id"], name: "index_bookings_on_customer_id"
 
@@ -67,22 +69,13 @@ ActiveRecord::Schema.define(version: 20170321065545) do
     t.string   "email"
   end
 
-  create_table "cleaners_cities", force: :cascade do |t|
-    t.integer  "cleaner_id"
-    t.integer  "city_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "cleaners_cities", ["city_id"], name: "index_cleaners_cities_on_city_id"
-  add_index "cleaners_cities", ["cleaner_id"], name: "index_cleaners_cities_on_cleaner_id"
-
   create_table "customers", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
     t.string   "phone_number"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.string   "password"
   end
 
 end

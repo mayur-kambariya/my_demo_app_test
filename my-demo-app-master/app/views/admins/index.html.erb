@@ -1,4 +1,4 @@
-<table>
+<table border=2>
   <tr>
     <th> Date And Time </th>
     <th> Customer name </th>
@@ -10,6 +10,6 @@
       <td><%= booking.date %></td>
       <td><%= booking.customer.first_name %> <%= booking.customer.last_name  %></td>
       <td><%= booking.cleaner.first_name %> <%= booking.cleaner.last_name %></td>
-      <td>city</td>
+      <td><%= booking.city.name %></td>
     </tr>
 <% end %>

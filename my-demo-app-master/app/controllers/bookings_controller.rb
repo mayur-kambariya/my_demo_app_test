@@ -1,6 +1,7 @@
 class BookingsController < ApplicationController
   before_action :set_booking, only: [:show, :edit, :update, :destroy]
-
+  before_action :session_checking
+  before_action :select_city, only: [:new,:create]
   # GET /bookings
   # GET /bookings.json
   def index
@@ -65,6 +66,11 @@ class BookingsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_booking
       @booking = Booking.find(params[:id])
+    end
+
+    # select city for new or create
+    def select_city
+      @city = City.all
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

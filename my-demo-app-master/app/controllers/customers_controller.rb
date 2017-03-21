@@ -1,6 +1,6 @@
 class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
-
+  before_action :session_checking , only: [:index, :show, :edit]
   # GET /customers
   # GET /customers.json
   def index
@@ -24,15 +24,24 @@ class CustomersController < ApplicationController
   # POST /customers
   # POST /customers.json
   def create
-    @customer = Customer.new(customer_params)
-
-    respond_to do |format|
-      if @customer.save
-        format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
-        format.json { render :show, status: :created, location: @customer }
-      else
-        format.html { render :new }
-        format.json { render json: @customer.errors, status: :unprocessable_entity }
+    if params[:commit] == 'Login'
+      @customer = Customer.find_by(phone_number:params[:customer][:phone_number],password:params[:customer][:password])
+      unless @customer.nil?
+       session[:customer] = @customer.id
+       render :show
+     else
+       flash[:notice] = "Invalid Phone number or Password"
+     end
+    else
+      @customer = Customer.new(customer_params)
+      respond_to do |format|
+        if @customer.save
+          format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
+          format.json { render :show, status: :created, location: @customer }
+        else
+          format.html { render :new }
+          format.json { render json: @customer.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -61,6 +70,11 @@ class CustomersController < ApplicationController
     end
   end
 
+  def logout
+    session[:customer] = nil
+    redirect_to action: 'new'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_customer
@@ -69,6 +83,6 @@ class CustomersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def customer_params
-      params.require(:customer).permit(:first_name, :last_name, :phone_number)
+      params.require(:customer).permit(:first_name, :last_name, :phone_number, :password)
     end
 end
