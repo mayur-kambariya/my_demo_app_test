@@ -1,0 +1,8 @@
+<% if current_admin %>
+  <%= link_to 'Cleaners', cleaners_path %>
+  <%= link_to 'logout', destroy_admin_session_path,method: :delete %>
+<% else %>
+  <%= link_to 'Bookings', bookings_path %>
+  <%= link_to 'Customers', customers_path %>
+  <%= link_to 'Login_Admin', new_admin_session_path,method: :get %>
+<% end %>
