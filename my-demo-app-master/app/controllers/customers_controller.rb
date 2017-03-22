@@ -1,10 +1,15 @@
 class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
-  before_action :session_checking , only: [:index, :show, :edit]
+  before_action :session_checking , only: [:show, :edit]
+  before_action :admin_only, only: [:new,:edit]
   # GET /customers
   # GET /customers.json
   def index
-    @customers = Customer.all
+    if current_admin
+      @customers = Customer.all
+    else
+      @bookings = Booking.where(customer_id:session[:customer])
+    end
   end
 
   # GET /customers/1
@@ -27,15 +32,18 @@ class CustomersController < ApplicationController
     if params[:commit] == 'Login'
       @customer = Customer.find_by(phone_number:params[:customer][:phone_number],password:params[:customer][:password])
       unless @customer.nil?
-       session[:customer] = @customer.id
-       render :show
-     else
-       flash[:notice] = "Invalid Phone number or Password"
-     end
+        session[:customer] = @customer.id
+        flash[:notice] = ''
+        redirect_to customers_path
+      else
+        flash[:notice] = "Invalid Phone number or Password"
+        redirect_to root_path
+      end
     else
       @customer = Customer.new(customer_params)
       respond_to do |format|
         if @customer.save
+          session[:customer] = @customer.id
           format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
           format.json { render :show, status: :created, location: @customer }
         else

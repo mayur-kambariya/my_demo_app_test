@@ -1,5 +1,5 @@
 <h1>Booking Details </h1>
-<table border=2>
+<table border=2 class="table table-bordered">
   <tr>
     <th> Date And Time </th>
     <th> Customer name </th>
@@ -8,10 +8,10 @@
   </tr>
 <% @bookings.each do |booking|%>
     <tr>
-      <td><%= booking.time %></td>
+      <td><%= booking.datetime.localtime.strftime("%m/%d/%Y %H:%M") %></td>
       <td><%= booking.customer.first_name %> <%= booking.customer.last_name  %></td>
       <td><%= booking.cleaner.first_name %> <%= booking.cleaner.last_name %></td>
       <td><%= booking.city.name %></td>
-      <td><%= link_to 'Show', booking %></td>
+      <td><%= link_to 'Show',booking %></td>
     </tr>
 <% end %>

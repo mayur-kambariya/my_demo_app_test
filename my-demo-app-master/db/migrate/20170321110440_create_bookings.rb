@@ -4,7 +4,7 @@ class CreateBookings < ActiveRecord::Migration
       t.references :customer, index: true, foreign_key: true
       t.references :cleaner, index: true, foreign_key: true
       t.references :city, index: true, foreign_key: true
-      t.time :time
+      t.datetime :datetime
 
       t.timestamps null: false
     end

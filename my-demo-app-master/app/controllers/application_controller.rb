@@ -8,4 +8,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def admin_only
+    if current_admin
+      redirect_to '/admins/index'
+    end
+  end
+
 end

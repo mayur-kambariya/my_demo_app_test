@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20170321111321) do
     t.integer  "customer_id"
     t.integer  "cleaner_id"
     t.integer  "city_id"
-    t.time     "time"
+    t.datetime "datetime"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
